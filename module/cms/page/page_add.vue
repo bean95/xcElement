@@ -33,6 +33,9 @@
   <el-form-item label="物理路径" prop="pagePhysicalPath">
     <el-input v-model="pageForm.pagePhysicalPath" auto-complete="off"></el-input>
   </el-form-item>
+  <el-form-item label="数据Url" prop="dataUrl">
+    <el-input v-model="pageForm.dataUrl" auto-complete="off" ></el-input>
+  </el-form-item>
   <el-form-item label="类型" prop="pageType">
   <el-radio-group v-model="pageForm.pageType">
   <el-radio class="radio" label="0">静态</el-radio>
@@ -66,6 +69,7 @@ export default {
           pageWebPath: '',
           pageParameter:'',
           pagePhysicalPath:'',
+          dataUrl:'',
           pageType:'',
           pageCreateTime: new Date()
         },
@@ -84,6 +88,9 @@ export default {
           ],
           pagePhysicalPath: [
             { required: true, message: '请输入物理路径', trigger: 'blur' }
+          ],
+          dataUrl: [
+            { required: true, message: '请输入数据Url', trigger: 'blur' }
           ],
           pageType: [
             { required: true, message: '请选择类型', trigger: 'blur' }
@@ -105,6 +112,8 @@ export default {
                 if(res.success){
                   this.$message.success("Add successfully.");
                   this.$refs['pageFormRef'].resetFields();
+                }else if(res.message){
+                  this.$message.error(res.message);
                 }else{
                   this.$message.error("Failed.");
                 }

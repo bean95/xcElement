@@ -36,7 +36,8 @@
      </el-table-column>
      <el-table-column
        prop="pageWebPath"
-       label="访问路径">
+       label="访问路径"
+       width="150">
      </el-table-column>
      <el-table-column
        prop="pagePhysicalPath"
@@ -46,7 +47,7 @@
        prop="pageCreateTime"
        label="创建时间">
      </el-table-column>
-     <el-table-column label="操作" width="120">
+     <el-table-column label="操作" width="200">
       <template slot-scope="page">
         <el-button
           size="small" type="text"
@@ -56,6 +57,10 @@
           size="small" type="text"
           @click="del(page.row.pageId)">删除
         </el-button>
+        <el-button
+          size="small" type="text"
+          @click="preview(page.row.pageId)">预览
+  </el-button>
       </template>
      </el-table-column>
    </el-table>
@@ -121,6 +126,9 @@ export default {
             }
           });
         });
+      },
+      preview:function(pageId){
+        window.open("http://www.xuecheng.com/cms/preview/"+pageId);
       }
     },
     created(){//view还未渲染
