@@ -139,7 +139,7 @@ export default {
         this.siteList = res.queryResult.list;
       });
       //get CmsTemplate datas
-      cmsApi.template_list().then((res)=>{
+      cmsApi.template_all().then((res)=>{
         this.templateList = res.queryResult.list;
       })
     }

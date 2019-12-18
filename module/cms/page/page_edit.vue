@@ -151,7 +151,7 @@
       });
 
       //模板列表
-      cmsApi.template_list().then((res)=>{
+      cmsApi.template_all().then((res)=>{
         this.templateList = res.queryResult.list;
       })
     }

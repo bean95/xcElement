@@ -19,7 +19,7 @@ export const site_list = ()=>{
 }
 
 //获取CmsTemplate列表数据
-export const template_list = ()=>{
+export const template_all = ()=>{
   //http://localhost:31001/cms/site/list
   return http.requestQuickGet(apiUrl+'/cms/template/list');
 }
@@ -46,4 +46,29 @@ export const page_edit = (id,params)=>{
 export const page_del = (id)=>{
   //http://localhost:31001/cms/site/list
   return http.requestDelete(apiUrl+'/cms/page/del/' + id);
+}
+
+
+//模板相关操作
+
+//定义方法
+//请求服务端的页面查询接口
+export const template_list = (page,size,params)=>{
+  //http://localhost:31001/cms/page/list/1/10
+  let queryStr = querystring.stringify(params);
+  return http.requestQuickGet(apiUrl+'/cms/template/list/'+page+'/'+size+"?"+queryStr);
+}
+
+export const template_add = (params)=>{
+  return http.requestPost(apiUrl+'/cms/template/add',params);
+}
+export const template_del = (id)=>{
+  return http.requestDelete(apiUrl+'/cms/template/del/' + id);
+}
+export const template_get = (id)=>{
+  return http.requestQuickGet(apiUrl+'/cms/template/get/'+id);
+}
+export const template_edit = (id,params)=>{
+  //http://localhost:31001/cms/site/list
+  return http.requestPut(apiUrl+'/cms/template/edit/' + id,params);
 }
