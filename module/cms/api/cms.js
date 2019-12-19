@@ -59,16 +59,23 @@ export const template_list = (page,size,params)=>{
   return http.requestQuickGet(apiUrl+'/cms/template/list/'+page+'/'+size+"?"+queryStr);
 }
 
-export const template_add = (params)=>{
+/*export const template_add = (params)=>{
   return http.requestPost(apiUrl+'/cms/template/add',params);
-}
+}*/
 export const template_del = (id)=>{
   return http.requestDelete(apiUrl+'/cms/template/del/' + id);
 }
 export const template_get = (id)=>{
   return http.requestQuickGet(apiUrl+'/cms/template/get/'+id);
 }
-export const template_edit = (id,params)=>{
-  //http://localhost:31001/cms/site/list
+/*export const template_edit = (id,params)=>{
   return http.requestPut(apiUrl+'/cms/template/edit/' + id,params);
+}*/
+
+//form + upload file
+export const template_add = (params)=>{
+  return http.requestUploadPost(apiUrl+'/cms/template/add',params);
+}
+export const template_edit = (id,params)=>{
+  return http.requestUploadPost(apiUrl+'/cms/template/edit/' + id,params);
 }

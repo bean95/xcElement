@@ -19,6 +19,20 @@ v-for="item in siteList"
   <el-input v-model="templateForm.templateParameter" auto-complete="off"></el-input>
   </el-form-item>
 
+  <el-upload
+    class="upload-demo"
+    ref="upload"
+    action=""
+    multiple
+    :limit="1"
+    accept=".ftl"
+    :on-change="changeFile"
+    :file-list="fileList"
+    :auto-upload="false">
+    <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+    <div slot="tip" class="el-upload__tip" style="margin-bottom:10px;">只能上传ftl文件</div>
+  </el-upload>
+
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="go_back">返回</el-button>
@@ -34,12 +48,14 @@ v-for="item in siteList"
         templateId:'',
         //模版列表
         templateList:[],
+        fileList:[],
         addLoading: false,//加载效果标记
         //新增界面数据
         templateForm: {
           siteId:'',
           templateName:'',
-          templateParameter: ''
+          templateParameter: '',
+          file: ''
         },
         templateFormRules: {
           siteId: [
@@ -64,12 +80,39 @@ v-for="item in siteList"
           }
         })
       },
+      changeFile:function(file){
+        this.templateForm.file = file.raw
+      },
       editSubmit(){
         this.$refs.pageFormRef.validate((valid) => {
           if (valid) {
             this.$confirm('Sure？', 'tip', {}).then(() => {
               this.addLoading = true;
-              cmsApi.template_edit(this.templateId,this.templateForm).then((res) => {
+
+
+              var formData = new FormData();
+              formData.append('file', this.templateForm.file)
+              formData.append('siteId', this.templateForm.siteId)
+              formData.append('templateName', this.templateForm.templateName)
+              formData.append('templateParameter', this.templateForm.templateParameter)
+
+              cmsApi.template_edit(this.templateId,formData).then((res)=>{
+                if(res.success){
+                  this.addLoading = false;
+                  this.$message({
+                    message: 'succeed.',
+                    type: 'success'
+                  });
+                  //返回
+                  this.go_back();
+                }else{
+                  this.addLoading = false;
+                  this.$message.error('Failed.');
+                }
+              });
+
+
+              /*cmsApi.template_edit(this.templateId,this.templateForm).then((res) => {
                 if(res.success){
                   this.addLoading = false;
                   this.$message({
@@ -83,7 +126,10 @@ v-for="item in siteList"
                   this.addLoading = false;
                   this.$message.error('Failed.');
                 }
-              });
+              });*/
+
+
+
             });
           }
         });

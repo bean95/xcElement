@@ -52,9 +52,7 @@ export default {
           siteId:'',
           templateName:'',
           templateParameter: '',
-          file:'',
-          age:'24',
-          name:'jason'
+          file:''
         },
         templateFormRules:{
           siteId: [
@@ -79,17 +77,17 @@ export default {
               cancelButtonText: 'cancel'
             }).then(() => {
 
-              /*var that = this;
+              var that = this;
               console.log(this.templateForm.file)
             //将需要提交的文件，和附带的数据，append  FormData中 然后提交
               var formData = new FormData();
               formData.append('file', this.templateForm.file)
               formData.append('siteId', this.templateForm.siteId)
               formData.append('templateName', this.templateForm.templateName)
-              formData.append('templateParameter', this.templateForm.templateParameter)*/
+              formData.append('templateParameter', this.templateForm.templateParameter)
               console.log(this.templateForm);
-              //调用add接口
-              cmsApi.template_add(this.templateForm).then((res)=>{
+
+              cmsApi.template_add(formData).then((res)=>{
                 if(res.success){
                   this.$message.success("Add successfully.");
                   this.$refs['templateFormRulesRef'].resetFields();
@@ -99,6 +97,18 @@ export default {
                   this.$message.error("Failed.");
                 }
               });
+
+              //调用add接口
+              /*cmsApi.template_add(this.templateForm).then((res)=>{
+                if(res.success){
+                  this.$message.success("Add successfully.");
+                  this.$refs['templateFormRulesRef'].resetFields();
+                }else if(res.message){
+                  this.$message.error(res.message);
+                }else{
+                  this.$message.error("Failed.");
+                }
+              });*/
 
 
             })
