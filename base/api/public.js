@@ -52,6 +52,23 @@ export default {
       })
     })
   },
+
+  //upload
+  requestUploadPost (url, params = {}) {
+    return new Promise((resolve, reject) => {
+      const config = {
+        headers: { "Content-Type": "multipart/form-data" }
+      };
+      axios.post(url, params, config).then(res => {
+        resolve(res.data)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+
+  //====================
   //post请求
   requestPostForm (url, params = {}) {
     return new Promise((resolve, reject) => {

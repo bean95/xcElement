@@ -60,7 +60,11 @@
         <el-button
           size="small" type="text"
           @click="preview(page.row.pageId)">预览
-  </el-button>
+        </el-button>
+        <el-button
+          size="small" type="text"
+          @click="postPage(page.row.pageId)">发布
+        </el-button>
       </template>
      </el-table-column>
    </el-table>
@@ -129,7 +133,25 @@ export default {
       },
       preview:function(pageId){
         window.open("http://www.xuecheng.com/cms/preview/"+pageId);
-      }
+      },
+      postPage:function(pageId){
+        this.$confirm('Sure？', 'tip', {}).then(() => {
+          this.addLoading = true;
+          cmsApi.page_post(pageId).then((res) => {
+            if(res.success){
+              this.addLoading = false;
+              this.$message({
+                message: 'succeed.',
+                type: 'success'
+              });
+              this.query();
+            }else{
+              this.addLoading = false;
+              this.$message.error('Failed.');
+            }
+          });
+        });
+      },
     },
     created(){//view还未渲染
       this.params.page = Number.parseInt(this.$route.query.page || 1);

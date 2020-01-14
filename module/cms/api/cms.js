@@ -29,25 +29,22 @@ export const page_add = (params)=>{
   //http://localhost:31001/cms/site/list
   return http.requestPost(apiUrl+'/cms/page/add',params);
 }
-
 //get
 export const page_get = (id)=>{
-  //http://localhost:31001/cms/site/list
   return http.requestQuickGet(apiUrl+'/cms/page/get/'+id);
 }
-
 //编辑后更新
 export const page_edit = (id,params)=>{
-  //http://localhost:31001/cms/site/list
   return http.requestPut(apiUrl+'/cms/page/edit/' + id,params);
 }
-
 //删除页面
 export const page_del = (id)=>{
-  //http://localhost:31001/cms/site/list
   return http.requestDelete(apiUrl+'/cms/page/del/' + id);
 }
-
+//发布
+export const page_post = (pageId)=>{
+  return http.requestPost(apiUrl+'/cms/page/postPage/' + pageId);
+}
 
 //模板相关操作
 
